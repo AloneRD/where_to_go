@@ -1,3 +1,4 @@
 from django.contrib import admin
+from where_to_go_poster.models import Places
 
-# Register your models here.
+admin.site.register(Places)
