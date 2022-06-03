@@ -17,3 +17,17 @@ class Places(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+
+class ImagesPlaces(models.Model):
+    place = models.ForeignKey(Places,on_delete=models.CASCADE,verbose_name="место")
+    img = models.FileField(upload_to='places/',blank=True,null=True,verbose_name=("изображение"))
+
+    class Meta:
+        verbose_name_plural="images"
+        verbose_name = "image"
+        db_table = "ImagesPlaces"
+    
+
+    def __str__(self) -> str:
+        return f'{self.id} {self.place}'
