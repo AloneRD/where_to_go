@@ -6,5 +6,6 @@ from django.conf import settings
 
 
 urlpatterns = [
-    path('',views.MainPage.as_view(),name='main_page')
+    path('',views.MainPage.as_view(),name='main_page'),
+    path('places/<int:pk>',views.PlacesDetail.as_view(),name="places_detail")
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
