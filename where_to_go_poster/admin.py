@@ -2,9 +2,12 @@ from django.contrib import admin
 from where_to_go_poster.models import Places
 from where_to_go_poster.models import ImagesPlaces
 from django.utils.html import format_html
+from adminsortable2.admin import SortableInlineAdminMixin
+from adminsortable2.admin import SortableAdminMixin
 
-class ImagePlaceInline(admin.TabularInline):
+class ImagePlaceInline(SortableInlineAdminMixin,admin.TabularInline):
     model = ImagesPlaces
+    extra = 2
     readonly_fields = ("img_show",)
 
 
@@ -13,7 +16,7 @@ class ImagePlaceInline(admin.TabularInline):
 
 
 @admin.register(Places)
-class AdminPlace(admin.ModelAdmin):
+class AdminPlace(SortableAdminMixin,admin.ModelAdmin):
     inlines = [ImagePlaceInline]
      
 
