@@ -3,7 +3,7 @@
 Интерактивная карта Москвы, на которой отмечаны интересные виды и места активного отдыха с подробными описаниями и комментариями.
 
 # Демка сайта
-
+https://agoncharov.pythonanywhere.com/
 # Запуск локально
 - git clone https://github.com/AloneRD/where_to_go.git
 - активировать виртуальное окружение ./env/Scripts/activate
