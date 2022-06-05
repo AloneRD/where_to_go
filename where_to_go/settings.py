@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '29*l@ixg)$n892y3y@ncyfiw82d$pao&#s+edkj5m&+3ov!^u3'
+SECRET_KEY = os.environ.get('SECRET_KEY') or '29*l@ixg)$n892y3y@ncyfiw82d$pao&#s+edkj5m&+3ov!^u3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG") or True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS') or "127.0.0.1"]
 
 
 # Application definition
@@ -124,3 +124,7 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'where_to_go_poster/media/')
 MEDIA_URL = '/media/'
+
+
+SECURE_HSTS_SECONDS = os.environ.get('SECURE_HSTS_SECONDS') or False
+SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE') or False
