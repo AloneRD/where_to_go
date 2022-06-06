@@ -6,7 +6,7 @@
 https://agoncharov.pythonanywhere.com/
 # Запуск локально
 - git clone https://github.com/AloneRD/where_to_go.git
-- активировать виртуальное окружение ./env/Scripts/activate
+- pip install -r requirements.txt
 - перейти в директорию проекта whete_to_go
 - запустить миграции 
     * python./manager makemigrations
