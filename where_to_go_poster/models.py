@@ -32,6 +32,6 @@ class ImagesPlaces(models.Model):
         db_table = "ImagesPlaces"
         ordering = ('img_order',)
     
-
+ 
     def __str__(self) -> str:
-        return f'{self.id} {self.place}'
+        return f'{self.img_order} {self.place}'

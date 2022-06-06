@@ -25,7 +25,7 @@ class MainPage(TemplateView):
                     "coordinates": [coordinates["lng"], coordinates["lat"]]
                     },
                 "properties": {
-                "title": f"{re.search(r'«(.*)»',place.title).group(0)}",
+                "title": place.title,
                 "placeId": f"{place.id}",
                 "detailsUrl": reverse('places_detail',kwargs={"pk":place.id})
                 }
