@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from environs import Env
+from django.core.signing import Signer
+
+env = Env()
+signer = Signer('my-other-secret')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,12 +25,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY') or '29*l@ixg)$n892y3y@ncyfiw82d$pao&#s+edkj5m&+3ov!^u3'
+SECRET_KEY = signer.sign(os.environ.get('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG") or True
+DEBUG = env.bool("DEBUG", True)
 
-ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS') or "127.0.0.1"]
+ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS', "127.0.0.1")]
 
 
 # Application definition
@@ -122,9 +127,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR,'where_to_go_poster/media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'where_to_go_poster/media/')
 MEDIA_URL = '/media/'
 
 
-SECURE_HSTS_SECONDS = os.environ.get('SECURE_HSTS_SECONDS') or False
-SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE') or False
+SECURE_HSTS_SECONDS = env.bool("SECURE_HSTS_SECONDS", False)
+SESSION_COOKIE_SECURE = env.bool("SESSION_COOKIE_SECURE", False)
