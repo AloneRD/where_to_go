@@ -14,24 +14,26 @@ class Command(BaseCommand):
         parser.add_argument('link', nargs='+', type=str, help='Link to JSON')
 
     def handle(self, *args, **options):
-        requests_data_place = requests.get(fr"{options['link'][0]}")
-        requests_data_place.raise_for_status()
-        data_place = requests_data_place.json()
-        if 'error' in data_place:
-            raise requests.exceptions.HTTPError(data_place['error'])
+        response_get_place = requests.get(fr"{options['link'][0]}")
+        response_get_place.raise_for_status()
+        place = response_get_place.json()
+        if 'error' in place:
+            raise requests.exceptions.HTTPError(place['error'])
+        coordinates_place = dict(place["coordinates"])
         place, created = Places.objects.get_or_create(
-            title=data_place['title'],
-            coordinates=data_place['coordinates'],
+            title=place['title'],
+            coordinate_lng=coordinates_place["lng"],
+            coordinate_lat=coordinates_place["lat"],
             defaults={
-                'description_short': data_place['description_short'],
-                'description_long': data_place['description_long']
+                'description_short': place['description_short'],
+                'description_long': place['description_long']
                 }
         )
         images = []
-        for img in data_place['imgs']:
+        for img in place['imgs']:
             name = os.path.splitext(os.path.split(urlparse(img).path)[1])[0]
             content_request = requests.get(img)
-            content_request.raise_for_status()         
+            content_request.raise_for_status()
             content = content_request.content
             images.append(
                 {

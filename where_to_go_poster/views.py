@@ -11,15 +11,14 @@ class MainPage(TemplateView):
 
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
-        query_set_places = Places.objects.all()
+        places = Places.objects.all()
         features = []
-        for place in query_set_places:
-            coordinates = eval(place.coordinates)
+        for place in places:
             feature = {
                 "type": "Feature",
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [coordinates["lng"], coordinates["lat"]]
+                    "coordinates": [place.coordinate_lng, place.coordinate_lat]
                     },
                 "properties": {
                     "title": place.title,
@@ -28,11 +27,11 @@ class MainPage(TemplateView):
                 }
             }
             features.append(feature)
-        json_places = {
+        places_for_site = {
             "type": "FeatureCollection",
             "features": features
         }
-        context['json_places'] = json_places
+        context['places'] = places_for_site
         return context
 
 
@@ -42,11 +41,14 @@ class PlacesDetail(DetailView):
     def get(self, request, *args, **kwargs) -> JsonResponse:
         self.object = self.get_object()
         images = [image.img.url for image in ImagesPlaces.objects.filter(place_id=self.object.id)]
-        json_place = {
+        place = {
             "title": self.object.title,
             "imgs": images,
             "description_short": self.object.description_short,
             "description_long": self.object.description_long,
-            "coordinates": self.object.coordinates
+            "coordinates": {
+                "lat": self.object.coordinate_lat,
+                "lng": self.object.coordinate_lng
+                }
         }
-        return JsonResponse(json_place, safe=False, json_dumps_params={'ensure_ascii': False})
+        return JsonResponse(place, safe=False, json_dumps_params={'ensure_ascii': False})
