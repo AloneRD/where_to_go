@@ -3,7 +3,7 @@ from where_to_go_poster.models import Places
 from where_to_go_poster.models import ImagesPlaces
 from django.utils.html import format_html
 from adminsortable2.admin import SortableInlineAdminMixin
-from adminsortable2.admin import SortableAdminMixin
+from adminsortable2.admin import SortableAdminBase
 
 
 class ImagePlaceInline(SortableInlineAdminMixin, admin.TabularInline):
@@ -16,7 +16,7 @@ class ImagePlaceInline(SortableInlineAdminMixin, admin.TabularInline):
 
 
 @admin.register(Places)
-class AdminPlace(SortableAdminMixin, admin.ModelAdmin):
+class AdminPlace(SortableAdminBase, admin.ModelAdmin):
     inlines = [ImagePlaceInline]
 
 

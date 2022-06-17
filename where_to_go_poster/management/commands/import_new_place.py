@@ -14,16 +14,16 @@ class Command(BaseCommand):
         parser.add_argument('link', nargs='+', type=str, help='Link to JSON')
 
     def handle(self, *args, **options):
-        response_get_place = requests.get(fr"{options['link'][0]}")
-        response_get_place.raise_for_status()
-        place = response_get_place.json()
+        get_place_response = requests.get(fr"{options['link'][0]}")
+        get_place_response.raise_for_status()
+        place = get_place_response.json()
         if 'error' in place:
             raise requests.exceptions.HTTPError(place['error'])
-        coordinates_place = dict(place["coordinates"])
+        place_coordinates = dict(place["coordinates"])
         place, created = Places.objects.get_or_create(
             title=place['title'],
-            coordinate_lng=coordinates_place["lng"],
-            coordinate_lat=coordinates_place["lat"],
+            coordinate_lng=place_coordinates["lng"],
+            coordinate_lat=place_coordinates["lat"],
             defaults={
                 'description_short': place['description_short'],
                 'description_long': place['description_long']
@@ -35,12 +35,10 @@ class Command(BaseCommand):
             content_request = requests.get(img)
             content_request.raise_for_status()
             content = content_request.content
-            images.append(
-                {
+            images.append({
                     "content": BytesIO(content),
                     "name": name
-                }
-                )
+                    })
 
         for image in images:
             new_place = ImagesPlaces(place=place)
