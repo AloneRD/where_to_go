@@ -29,13 +29,13 @@ https://agoncharov.pythonanywhere.com/
 ```
 - перейти по адрессу http://127.0.0.1:8000/
 - увидеть карту Москвы!
-# Демка сайта
-Переменные окружения
+# Переменные окружения
 * DEBUG
 * ALLOWED_HOSTS
 * SECRET_KEY 
 * SECURE_HSTS_SECONDS 
 * SESSION_COOKIE_SECURE
+* STATIC_ROOT
  Информацию по переменным окружения можно найти в документации Django https://docs.djangoproject.com/en/3.1/ref/settings/#allowed-hosts
  # Добавления новых локаций на сайт
  Есть два способа:
