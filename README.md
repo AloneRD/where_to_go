@@ -5,14 +5,28 @@
 # Демка сайта
 https://agoncharov.pythonanywhere.com/
 # Запуск локально
-- git clone https://github.com/AloneRD/where_to_go.git
-- pip install -r requirements.txt
-- перейти в директорию проекта whete_to_go
-- запустить миграции 
-    * python./manager makemigrations
-    * python./manager migrate
-- для доступа в админку создать пользователя выполив команду python./manager createsuperuser
-- запустить сервер выполнив команду python./manager runserver
+- склонировать себе репозиторий
+```
+   git clone https://github.com/AloneRD/where_to_go.git
+```
+- установмить необходимые зависимости
+```
+   pip install -r requirements.txt
+```
+- перейти в директорию проекта **whete_to_go**
+- запустить миграции
+```
+   python./manager makemigrations
+   python./manager migrate 
+```
+- для доступа в админку создать пользователя выполив команду 
+```
+   python./manager createsuperuser
+```
+- запустить сервер выполнив команду 
+```
+   python./manager runserver
+```
 - перейти по адрессу http://127.0.0.1:8000/
 - увидеть карту Москвы!
 # Демка сайта
@@ -26,7 +40,10 @@ https://agoncharov.pythonanywhere.com/
  # Добавления новых локаций на сайт
  Есть два способа:
  1. Зайти в админку сайта /admin и заполнять все руками.
- 2. Из json файла  с данными по локации,выполнив команду  **python manage.py load_place https://адрес_файла/имя_файла.json** 
+ 2. Из json файла  с данными по локации,выполнив команду  
+```
+ python manage.py import_new_place https://адрес_файла/имя_файла.json
+```
 
 Пример JSON файла:
 ```
